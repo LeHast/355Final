@@ -9,13 +9,8 @@ const Staff = () => {
             <h1>Check Staff</h1>
             <div>
                 <div className="resort-form">
-                    <label htmlFor="checkFirstName">First Name</label>
+                    <label htmlFor="checkFirstName">ID</label>
                     <input type="text" id="checkFirstName" required />
-                </div>
-
-                <div className="resort-form">
-                    <label htmlFor="checkLastName">Last Name</label>
-                    <input type="text" id="checkLastName" required />
                 </div>
                 <button>Check</button>
             </div>

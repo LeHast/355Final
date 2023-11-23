@@ -35,18 +35,25 @@ export default class APIInterface {
     }
 
 
-    async getHotelsInCity(city){
-        return axiosAgent.get(`search/${city}`)
+    async CheckReservationID(ID){
+        return axiosAgent.get(`reservation/${ID}`)
     }
 
-    async getHotelsByID(ID){
-        return axiosAgent.get(`search/id/${ID}`)
+    async CheckGuestInformation(lName,fName){
+        return axiosAgent.get(`guest/${lName}/${fName}`)
     }
 
-    async getReviewsByHotelID(HotelID){
-        return axiosAgent.get(`reviews/getbyhotelid/${HotelID}`)
+    async CheckRoom(roomNum){
+        return axiosAgent.get(`room/${roomNum}`)
     }
-     async registerUser(userData) {
+
+    async CheckStaff(ID){
+        return axiosAgent.get(`Staff/${ID}`)
+    }
+
+
+
+    async registerUser(userData) {
         return axiosAgent.post(`sign-up/${userData.username}`, userData)
             .then(userData => userData.data)
             .catch(error => (
