@@ -43,9 +43,14 @@ export default class APIInterface {
         return axiosAgent.get(`guest/${lName}/${fName}`)
     }
 
-    async CheckRoom(roomNum){
-        return axiosAgent.get(`room/${roomNum}`)
+    async CheckRoom(id){
+        return axiosAgent.get(`room/getid/${id}`)
     }
+
+    async CheckAllRoom(){
+        return axiosAgent.get(`room/all`)
+    }
+    
 
     async CheckStaff(ID){
         return axiosAgent.get(`Staff/${ID}`)

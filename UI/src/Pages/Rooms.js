@@ -13,12 +13,36 @@ const Rooms = () => {
         const api = new API();
         async function getRoutes() {
             const routesJSONString = await api.CheckRoom(RoomNum);
-            //console.log(routesJSONString.data);
             setData(routesJSONString.data);
         }
         getRoutes();
-
     }
+
+    const GetAllRooms = () => {
+        console.log("Getinfo");
+        const api = new API();
+        async function getRoutes() {
+            const routesJSONString = await api.CheckRoomID(RoomNum);
+            console.log(routesJSONString.data);
+            setData(routesJSONString.data);
+        }
+        getRoutes();
+    }
+
+    const roomInformation = data.map((item) => {
+        console.log(item);
+        return(
+            <form className="RoomInformation" >
+                <div style={{ display: 'flex', flexDirection: 'column', fontSize: '18px' }}>
+                    <label htmlFor="roomNumber">Room #: {item.RoomID} </label>
+                    <label htmlFor="roomType">Type: {item.Type} </label>
+                    <label htmlFor="beds">Beds: {item.NumberOfBeds}</label>
+                    <label htmlFor="price">Price: {item.Price} </label>
+                    <label htmlFor="HotelID">Price: {item.HotelID} </label>
+                </div>
+            </form>
+        );
+    });
 
     return (
         <div className="resort">
@@ -29,9 +53,12 @@ const Rooms = () => {
                 <label htmlFor="checkRoomId">Room #</label>
                 <input type="text" id="checkRoomId"  onChange={(e) => setRoomNum(e.target.value)} required />
                 <button onClick={() => Getinfo()}>Check</button>
+                <button onClick={() => Getinfo()}>Check All Rooms</button>
             </div>
 
             <h2>Room Information</h2>
+            {roomInformation}
+            <h2>Create Room</h2>
             <form className="GuestInformation">
                 <div>
                     <label htmlFor="roomNumber">Room #: </label>
