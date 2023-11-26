@@ -5,7 +5,7 @@ require('dotenv').config();
 const getRooms = async (ctx) => {
     return new Promise((resolve, reject) => {
         console.log('city');
-        const query = `SELECT * FROM room`;
+        const query = `SELECT * FROM Room`;
         dbConnection.query({
             sql: query,
         },(error, tuples) => {
@@ -30,7 +30,7 @@ const getRoomID = async (ctx) => {
     return new Promise((resolve, reject) => {
         const RoomID = ctx.params.id;
 
-        const query = `SELECT * FROM room WHERE RoomID = ?`;
+        const query = `SELECT * FROM Room WHERE RoomID = ?`;
         dbConnection.query({
             sql: query,
             values: [RoomID]
