@@ -1,7 +1,50 @@
 import React from 'react';
-import { Button } from "@mui/material";
+import { useState, useEffect } from 'react';
+import API from '../API_Interface/API_Interface.js'
 
+import { Button } from "@mui/material";
 const Staff = () => {
+    const [data, setData] = useState([]);
+    const [inputID, SetinputID] = useState('');
+    
+    const GetData = () => {
+        const api = new API();
+        async function getRoutes() {
+            const routesJSONString = await api.CheckStaff(inputID);
+            setData(routesJSONString.data);
+        }
+        getRoutes();
+    }
+
+    const StaffInformation = data.map((item) => {
+        return(
+            <form className="GuestInformation">
+            <div>
+                <label htmlFor="staffId">Staff ID: {item.StaffID}</label>
+            </div>
+            <div>
+                <label htmlFor="staffFirstName">First Name: {item.FirstName}</label>
+            </div>
+            <div>
+                <label htmlFor="staffLastName">Last Name: {item.LastName}</label>
+            </div>
+            <div>
+                <label htmlFor="job">Job: {item.Job}</label>
+            </div>
+            <div>
+                <label htmlFor="age">Age: {item.Age}</label>
+            </div>
+            <div>
+                <label htmlFor="staffPhone">Phone #: {item.PhoneNumber}</label>
+            </div>
+            <div>
+                <label htmlFor="staffJob">Job: {item.Job}</label>
+            </div>
+        </form>
+
+        );
+    });
+
     return (
         
         <div className="resort">
@@ -10,11 +53,14 @@ const Staff = () => {
             <div>
                 <div className="resort-form">
                     <label htmlFor="checkFirstName">ID</label>
-                    <input type="text" id="checkFirstName" required />
+                    <input type="text" onChange={(e) => SetinputID(e.target.value)} required />
                 </div>
-                <button>Check</button>
+                <button onClick={()=> GetData()} >Check</button>
             </div>
 
+            <h2>Staff Information</h2>
+            {StaffInformation}
+            
             <h2>Staff Information</h2>
             <form className="GuestInformation">
                 <div>

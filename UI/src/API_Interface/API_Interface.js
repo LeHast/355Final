@@ -56,6 +56,13 @@ export default class APIInterface {
         return axiosAgent.get(`Staff/${ID}`)
     }
 
+    async CheckGuestByName(fn, ln){
+        return axiosAgent.get(`guest/${fn}/${ln}`)
+    }
+    
+    async CheckReservationID(id){
+        return axiosAgent.get(`reservation/${id}`)
+    }
 
 
     async registerUser(userData) {

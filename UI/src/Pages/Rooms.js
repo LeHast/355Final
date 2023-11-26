@@ -9,7 +9,6 @@ const Rooms = () => {
     const [RoomNum, setRoomNum] = useState('');
 
     const Getinfo = () => {
-        console.log("Getinfo");
         const api = new API();
         async function getRoutes() {
             const routesJSONString = await api.CheckRoom(RoomNum);

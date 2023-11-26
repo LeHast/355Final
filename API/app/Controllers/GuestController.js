@@ -2,15 +2,18 @@ const dbConnection = require('../../database/mySQLconnect');
 
 require('dotenv').config();
 
-const getRooms = async (ctx) => {
+const getGuests = async (ctx) => {
     return new Promise((resolve, reject) => {
-        console.log('city');
-        const query = `SELECT * FROM room`;
+        const fName = ctx.params.fName;
+        const lName = ctx.params.lName;
+        
+        const query = `SELECT * FROM guest WHERE FirstName like ? AND LastName like ? LIMIT 1`;
         dbConnection.query({
             sql: query,
+            values: [fName, lName]
         },(error, tuples) => {
             if (error) {
-                console.log("Connection error in getHotelsInCity", error);
+                console.log("Connection error in Controllers::Guest.js::getGuest", error);
                 return reject(error);
             }
             ctx.body = tuples;
@@ -18,7 +21,7 @@ const getRooms = async (ctx) => {
             return resolve();
         });
     }).catch(err => {
-        console.log("Database connection error in getHotelsInCity.", err);
+        console.log("Database connection error in Controllers::Guest.js::getGuest.", err);
         // The UI side will have to look for the value of status and
         // if it is not 200, act appropriately.
         ctx.body = [];
@@ -26,17 +29,17 @@ const getRooms = async (ctx) => {
     });
 }
 
-const getRoomID = async (ctx) => {
+const getGuestID = async (ctx) => {
     return new Promise((resolve, reject) => {
-        const RoomID = ctx.params.id;
+        const GuestID = ctx.params.id;
 
-        const query = `SELECT * FROM Room WHERE roomID = ?`;
+        const query = `SELECT * FROM Guest WHERE GuestID = ?`;
         dbConnection.query({
             sql: query,
-            values: [RoomID]
+            values: [GuestID]
         },(error, tuples) => {
             if (error) {
-                console.log("Connection error in getHotelsInCity", error);
+                console.log("Connection error in Controllers::Guest.js::getGuestID", error);
                 return reject(error);
             }
             ctx.body = tuples;
@@ -44,7 +47,7 @@ const getRoomID = async (ctx) => {
             return resolve();
         });
     }).catch(err => {
-        console.log("Database connection error in getHotelsInCity.", err);
+        console.log("Database connection error in Controllers::Guest.js::getGuestID", err);
         // The UI side will have to look for the value of status and
         // if it is not 200, act appropriately.
         ctx.body = [];
@@ -54,6 +57,6 @@ const getRoomID = async (ctx) => {
 
 
 module.exports = {
-    getRooms,
-    getRoomID,
+    getGuests,
+    getGuestID,
 };
